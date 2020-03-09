@@ -3,53 +3,40 @@
 function validate()
 {
 	if (!isset($_GET['pid'])) {
-		return json_encode(
-			array(
-				'response' => false,
-				'reason' => 'Pid not specified'
-			)
+		return array(
+			'response' => false,
+			'reason' => 'Pid not specified'
 		);
 	} else if (!isset($_GET['move'])) {
-		return json_encode(
-			array(
-				'response' => false,
-				'reason' => 'Move not specified'
-			)
+		return array(
+			'response' => false,
+			'reason' => 'Move not specified'
 		);
 	} else {
-
-		// get values
-		$pid = json_decode($_GET['pid']);
+		$pid = $_GET['pid'];
 		$move = $_GET['move'];
+		$moveArr = explode(',', $move);
 
-		if (!file_exists('../data/' . $pid)) {
-			return json_encode(
-				array(
-					'response' => false,
-					'reason' => 'Unknown pid'
-				)
+		if (!file_exists('../data/' . $pid . '.json')) {
+			return array(
+				'response' => false,
+				'reason' => 'Unknown pid'
 			);
-		} else if (strlen($move) != 3 || !is_numeric($move[0]) || !is_numeric($move[2]) || $move[1] != ',') {
-			return json_encode(
-				array(
-					'response' => false,
-					'reason' => 'Move not well-formed'
-				)
+		} else if (sizeof($moveArr) != 2 || !is_numeric($moveArr[0]) || !is_numeric($moveArr[1])) {
+			return array(
+				'response' => false,
+				'reason' => 'Move not well-formed'
 			);
-		} else if ($move[0] < 0 || $move[0] > 14) { //between 0 - 14 is valid
-			return json_encode(
-				array(
-					'response' => false,
-					$move[0] >= 0,
-					'reason' => 'Invalid x coordinate'
-				)
+		} else if ($moveArr[0] < 0 || $moveArr[0] > 14) { //between 0 - 14 is valid
+			return array(
+				'response' => false,
+				$move[0] >= 0,
+				'reason' => 'Invalid x coordinate'
 			);
-		} else if ($move[2] < 0 && $move[2] > 14) {
-			return json_encode(
-				array(
-					'response' => false,
-					'reason' => 'Invalid y coordinate'
-				)
+		} else if ($moveArr[1] < 0 || $moveArr[1] > 14) {
+			return array(
+				'response' => false,
+				'reason' => 'Invalid y coordinate'
 			);
 		} else {
 			return array(
@@ -61,15 +48,25 @@ function validate()
 
 function validateCompInput($x, $y, $board)
 {
-	//TODO!
-	return true;
+	if ($x < 0 || $x > 14 || $y < 0 || $y > 14) {
+		return false;
+	} else if ($board[$x][$y] != 0) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
-function validateIsNotPicked()
+function validPicked($x, $y, $board)
 {
-	//TODO!
-	return
-		array(
-			'response' => true
+	if ($board[$x][$y] != 0) {
+		return array(
+			'response' => false,
+			'reason' => 'Already select coordinates.'
 		);
+	} else {
+		return array(
+			'response' => true,
+		);
+	}
 }
