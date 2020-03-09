@@ -57,3 +57,18 @@ function validate()
 		}
 	}
 }
+
+function validateCompInput($x, $y, $board)
+{
+	//TODO!
+	return true;
+}
+
+function validateIsNotPicked()
+{
+	//TODO!
+	return
+		array(
+			'response' => true
+		);
+}
