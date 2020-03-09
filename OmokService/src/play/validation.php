@@ -1,4 +1,5 @@
 <?php
+//function validates if chosen input does not violate constraints in the placement of new chips.
 function validate()
 {
 	if (!isset($_GET['pid'])) {

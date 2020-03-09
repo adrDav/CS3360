@@ -1,26 +1,30 @@
 <?php
+//files required for game to work.
 require('validation.php');
 require('board.php');
-
+//if response is not valid, message will be printed.
 $isValid = validate();
 if (!$isValid['response']) {
 	echo json_encode($isValid);
 } else {
 	// echo json_encode($_GET['pid']);
+	//assignment of values to variables.
 	$board = new Board($_GET['pid']);
 	$pid = $_GET['pid'];
 	$move = $_GET['move'];
 	$data = file_get_contents('../data/'.$pid.'.json');
-
+	//json string is encoded with the board received.
 	echo json_encode(
 		$board->getBoard()
 	);
 	echo '<h1>-</h1>';
+	//response from function is stored.
 	$validate = validateIsNotPicked($move[0], $move[2], $board->getBoard());
-
+	//if response is not valid, message will be printed. Board will be updated if response is valid.
 	if(!$validate['response']){
 		echo json_encode($isValid);
 	}
+	//board is updated.
 	$board->updateUserInput($move[0], $move[2]);
 
 	// $jdata['board'][$move[0]][$move[2]] = 1;
@@ -39,13 +43,13 @@ if (!$isValid['response']) {
 	// $fp = fopen('../data/'.$pid.'.json', 'w');
 	// fwrite($fp, json_encode($jdata));
 	// fclose($fp);
-
+	//json string of board is printed.
 	echo json_encode(
 		$board->getBoard()
 	);
-
+	//data is stored.
 	$board->storingData();
-
+	//game logic is stored.
 	echo json_encode(
 		array(
 			'response' => true,
@@ -75,4 +79,8 @@ if (!$isValid['response']) {
 			'response' => true,
 		)
 	);*/
+
+	//TODO (Adrian) isWin:
+
+	//TODO (Adrian) isDraw:
 }
