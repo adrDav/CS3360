@@ -49,7 +49,7 @@ if (!$isValid['response']) {
 					'y' => $y,
 					'isWin' => $board -> isWin(),
 					'isDraw' => $board -> isDraw(),
-					'row' => array() //row fucntion
+					'row' => $board->getRow() //row fucntion
 				)
 			)
 		);
