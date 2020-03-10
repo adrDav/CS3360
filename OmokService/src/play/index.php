@@ -53,6 +53,11 @@ if (!$isValid['response']) {
 				)
 			)
 		);
-
+		echo json_encode(
+			array(
+				'isWin' => $board -> isWin(),
+				'isDraw' => $board -> isDraw()
+			)
+		);
 	}
 }
