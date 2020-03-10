@@ -73,7 +73,7 @@ class board
 					$counterUser++;
 				}
 				//user has won.
-				if($counterUser == 8){
+				if($counterUser == 5){
 					return true;
 				}
 				//if there is a computer's chip and user computer's chip surrounding it, one should be added
@@ -81,7 +81,7 @@ class board
 					$counterComputer += 1;
 				}
 				//computer has won.
-				if($counterComputer == 8){
+				if($counterComputer == 5){
 					return true;
 				}
 			}
