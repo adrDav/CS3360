@@ -78,7 +78,7 @@ class board
 				}
 				//if there is a computer's chip and user computer's chip surrounding it, one should be added
 				if($this->board[$i][$j] ==  2 && $this->board[$i-1][$j] != 1 && $this->board[$i][$j-1] != 1 && $this->board[$i-1][$j-1] != 1){
-					$counterComputer += 1;
+					$counterComputer++;
 				}
 				//computer has won.
 				if($counterComputer == 5){
