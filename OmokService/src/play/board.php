@@ -69,16 +69,15 @@ class board
 		for($i = 0; $i < sizeof($this->board) ; $i++){
 			for($j = 0; $j < sizeof($this->board); $j++){
 				//if there is a user's chip and no computer's chip surrounding it, one should be added
-				if($this->$board[$i][$j] == 1){
-					$counterUser = 2;
-					return $counterUser;
+				if($this->board[$i][$j] ==  1 && $this->board[$i-1][$j] != 2 && $this->board[$i][$j-1] != 2 && $this->board[$i-1][$j-1] != 2){
+					$counterUser++;
 				}
 				//user has won.
 				if($counterUser == 8){
 					return true;
 				}
 				//if there is a computer's chip and user computer's chip surrounding it, one should be added
-				if($board[$i][$j] == 2 && $board[$i-1][$j] != 1 && $board[$i][$j-1] != 1 && $board[$i-1][$j-1] != 1){
+				if($this->board[$i][$j] ==  2 && $this->board[$i-1][$j] != 1 && $this->board[$i][$j-1] != 1 && $this->board[$i-1][$j-1] != 1){
 					$counterComputer += 1;
 				}
 				//computer has won.
@@ -88,9 +87,8 @@ class board
 			}
 
 		}
-		return $counterUser;
 		//neither user or computer has won
-		//return false;
+		return false;
 	}
 	//if the either the user or the computer has 8 chips in a line, true is returned.
 	function isDraw () {
@@ -98,13 +96,13 @@ class board
 		$counter = 0;
 		//traverse through the board.
 		for($i = 0; $i < sizeof($this->board) ; $i++){
-			for($j = 0; $j < sizeof($this->board); $i++){
+			for($j = 0; $j < sizeof($this->board); $j++){
 				//if there is a user's chip or computer's chip, one should be added
 				if($this->board[$i][$j] == 1 || $this->board[$i][$j] == 2){
-					$counterUser += 1;
+					$counter++;
 				}
 				//if all spaces are taken, a draw is decided.
-				if(sizeof($board) == $counter){
+				if( (sizeof($this->board)*sizeof($this->board) ) == $counter){
 					return true;
 				}
 			}

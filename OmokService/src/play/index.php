@@ -40,15 +40,15 @@ if (!$isValid['response']) {
 				'ack_move' => array(
 					'x' => $moveArr[0],
 					'y' => $moveArr[1],
-					'isWin' => false, //make function
-					'isDraw' => false, //make funtion
+					'isWin' => $board -> isWin(),
+					'isDraw' => $board -> isDraw(),
 					'row' => array()
 				),
 				'move' => array(
 					'x' => $x,
 					'y' => $y,
-					'isWin' => false, //make function
-					'isDraw' => false, //make funtion
+					'isWin' => $board -> isWin(),
+					'isDraw' => $board -> isDraw(),
 					'row' => array()
 				)
 			)
