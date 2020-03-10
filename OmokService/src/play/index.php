@@ -42,14 +42,14 @@ if (!$isValid['response']) {
 					'y' => $moveArr[1],
 					'isWin' => $board -> isWin(),
 					'isDraw' => $board -> isDraw(),
-					'row' => array()
+					'row' => $board -> getRow()
 				),
 				'move' => array(
 					'x' => $x,
 					'y' => $y,
 					'isWin' => $board -> isWin(),
 					'isDraw' => $board -> isDraw(),
-					'row' => array()
+					'row' => array() //row fucntion
 				)
 			)
 		);

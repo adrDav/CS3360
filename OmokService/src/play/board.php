@@ -10,7 +10,8 @@ class board
 		$_win = false,
 		$_draw = false,
 		$_winUser = false,
-		$_winComputer = false;
+		$_winComputer = false,
+		$row = array();
 	//function will initialize player's id and the board.
 	function __construct($pid)
 	{
@@ -33,6 +34,10 @@ class board
 	public function getBoard()
 	{
 		return $this->board;
+	}
+	//getter for the row 
+	public function getRow(){
+		return $this->row;
 	}
 	//function assigns the value in the specified x,y coordinates for the user.
 	function updateUserInput($x, $y)
@@ -62,6 +67,8 @@ class board
 	}
 	//if the either the user or the computer has 8 chips in a line, true is returned.
 	function isWin () {
+		//row of chip's from the winner.
+		$row = array();
 		//counter for user's chips and computer's chips.
 		$counterUser = 0;
 		$counterComputer = 0;
@@ -69,16 +76,29 @@ class board
 		for($i = 0; $i < sizeof($this->board) ; $i++){
 			for($j = 0; $j < sizeof($this->board); $j++){
 				//if there is a user's chip and no computer's chip surrounding it, one should be added
-				if($this->board[$i][$j] ==  1 && $this->board[$i-1][$j] != 2 && $this->board[$i][$j-1] != 2 && $this->board[$i-1][$j-1] != 2){
+				if( ($this->board[$i][$j] ==  1 && $this->board[$i-1][$j] == 1) || 
+					($this->board[$i][$j] ==  1 && $this->board[$i][$j-1] == 1) || 
+					($this->board[$i][$j] ==  1 && $this->board[$i-1][$j-1] == 1)||
+					($this->board[$i][$j] ==  1 && $this->board[$i+1][$j+1] == 1)
+					
+				){
 					$counterUser++;
+					array_push($row, $i);
+					array_push($row, $j);
 				}
 				//user has won.
 				if($counterUser == 5){
 					return true;
 				}
 				//if there is a computer's chip and user computer's chip surrounding it, one should be added
-				if($this->board[$i][$j] ==  2 && $this->board[$i-1][$j] != 1 && $this->board[$i][$j-1] != 1 && $this->board[$i-1][$j-1] != 1){
+				if( ($this->board[$i][$j] ==  2 && $this->board[$i-1][$j] == 2) || 
+					($this->board[$i][$j] ==  2 && $this->board[$i][$j-1] == 2) || 
+					($this->board[$i][$j] ==  2 && $this->board[$i-1][$j-1] == 2)||
+					($this->board[$i][$j] ==  2 && $this->board[$i+1][$j+1] == 2)
+				){
 					$counterComputer++;
+					array_push($row, $i);
+					array_push($row, $j);
 				}
 				//computer has won.
 				if($counterComputer == 5){
