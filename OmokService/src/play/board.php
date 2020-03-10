@@ -66,8 +66,8 @@ class board
 		$counterUser = 0;
 		$counterComputer = 0;
 		//traverse through the board.
-		for($i = 0; $i < $moveArr[0].length ; $i++){
-			for($j = 0; $j < $moveArr[1].length; $i++){
+		for($i = 0; $i < sizeof(board) ; $i++){
+			for($j = 0; $j < sizeof(board); $i++){
 				//if there is a user's chip and no computer's chip surrounding it, one should be added
 				if($board[$i][$j] == 1 && $board[$i-1][$j] != 2 && $board[$i][$j-1] != 2 && $board[$i-1][$j-1] != 2){
 					$counterUser += 1;

@@ -41,7 +41,7 @@ if (!$isValid['response']) {
 					'x' => $moveArr[0],
 					'y' => $moveArr[1],
 					'isWin' => false, //make function
-					'isDraw' => false, //make function
+					'isDraw' => false, //make funtion
 					'row' => array()
 				),
 				'move' => array(

@@ -5,12 +5,12 @@ function validate()
 	if (!isset($_GET['pid'])) {
 		return array(
 			'response' => false,
-			'reason' => 'Pid not specified'
+			'reason' => 'Player\'s ID not specified.'
 		);
 	} else if (!isset($_GET['move'])) {
 		return array(
 			'response' => false,
-			'reason' => 'Move not specified'
+			'reason' => 'Move was not specified'
 		);
 	} else {
 		$pid = $_GET['pid'];
@@ -20,23 +20,23 @@ function validate()
 		if (!file_exists('../data/' . $pid . '.json')) {
 			return array(
 				'response' => false,
-				'reason' => 'Unknown pid'
+				'reason' => 'Player\'s ID is unknown.'
 			);
 		} else if (sizeof($moveArr) != 2 || !is_numeric($moveArr[0]) || !is_numeric($moveArr[1])) {
 			return array(
 				'response' => false,
-				'reason' => 'Move not well-formed'
+				'reason' => 'Move was not well-formed'
 			);
 		} else if ($moveArr[0] < 0 || $moveArr[0] > 14) { //between 0 - 14 is valid
 			return array(
 				'response' => false,
 				$move[0] >= 0,
-				'reason' => 'Invalid x coordinate'
+				'reason' => 'Invalid x-coordinate value'
 			);
 		} else if ($moveArr[1] < 0 || $moveArr[1] > 14) {
 			return array(
 				'response' => false,
-				'reason' => 'Invalid y coordinate'
+				'reason' => 'Invalid y-coordinate value'
 			);
 		} else {
 			return array(
@@ -62,7 +62,7 @@ function validPicked($x, $y, $board)
 	if ($board[$x][$y] != 0) {
 		return array(
 			'response' => false,
-			'reason' => 'Already select coordinates.'
+			'reason' => 'Previously selected coordinates.'
 		);
 	} else {
 		return array(
