@@ -1,34 +1,32 @@
 module Board where
---Extra Methods (Helper functions for assignment methods)
---printValues :: [[Int]] -> IO ()
---printValues = putStrLn. unlines . mkBoard
 --1.
-
+--Creation of types for both players and coordinates of the board.
  data Player = Red | Blue | None deriving (Show, Eq)
- data Coordinates = Coordinates { x :: Int, y :: Int, p :: Player} deriving (Show)
- -- mkBoard n
+ data Coordinates = Coordinates { xC :: Int, yC :: Int, p :: Player} deriving (Show)
+ -- mkBoard: Receives as input an integer n and returns an empty nxn board as the Coordinates type.
  mkBoard :: Int -> [Coordinates]
- mkBoard n = [Coordinates { x = row, y = col, p = None} | row <- [1..(n-1)], col <- [1..(n-1)]]
+ mkBoard n = [Coordinates { xC = row, yC = col, p = None} | row <- [0..(n-1)], col <- [0..(n-1)]]
 
- -- mkPlayer: Object of type 'Player', Player will be the color Red
+ -- mkPlayer: Object of type 'Player', Player will be the color Red.
  mkPlayer :: Player
  mkPlayer = Red
 
- -- mkOpponent: Object of type 'Player', Player will be the color Blue
+ -- mkOpponent: Object of type 'Player', Player will be the color Blue.
  mkOpponent :: Player
  mkOpponent = Blue
 
- -- size bd
+ -- size bd: Receives the board (array of coordinates) and returns the length of such object.
  size :: [Coordinates] -> Int 
  size bd =  length bd
 
- -- row y bd
- --row y bd 
-  -- | y<1 || y>(size bd) = []
-  -- | otherwise = bd !! (y-1)
+ -- row y bd: Receives an integer y, where y represents a 1-based index. Returns the list of coordinates of the row.
+ row :: Int -> [Coordinates] -> [Coordinates]
+ row y bd = [i | i <- bd, yC i == y] 
 
- -- column x bd
- --column x bd = [a !! (x-1) | a<-bd]
+
+ -- column x bd Receives an integer x, where x represents a 1-based index. Returns the list of coordinates of the column.
+ column:: Int -> [Coordinates] -> [Coordinates]
+ column x bd = [i | i <- bd, xC i == x] 
 
  --2.
  -- mark x y bd p
