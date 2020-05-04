@@ -30,9 +30,13 @@ module Board where
 
  --2.
  -- mark x y bd p
+ mark :: Int -> Int -> [Coordinates] -> Player -> [Coordinates]
+ mark x y bd p = map m bd 
+  where m i = if xC i == x && yC i == y 
+               then Coordinates {xC = x, yC = y, p = p} 
+               else i 
 
  -- isEmpty x y bd
- --isEmpty x y bd = ((row y bd) !! (x-1) == 0)
 
  -- isMarked x y bd
  --isMarked x y bd = ((row y bd) !! (x-1) /= 0)
@@ -40,9 +44,15 @@ module Board where
  -- isMarkedBy x y bd p
 
  -- marker x y board
+ marker :: Int -> Int -> [Coordinates] -> Player
+ marker x y board = p (head (filter f board))
+   where f i = if xC i == x && yC i == y 
+                then True
+                else False
+
 
  -- isFull bd
- --isFull bd = length (filter (\x->x==0)(concat bd)) == 0
+ isFull bd = 0 == length (filter (\i -> p i == None)bd)
 
 --3.
  -- isWonBy bd p
