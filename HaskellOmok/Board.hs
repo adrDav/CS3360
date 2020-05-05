@@ -23,7 +23,7 @@ module Board where
   | otherwise = bd !! (y-1)
 
 
- -- column x bd Receives an integer x, where x represents a 1-based index. Returns the list of coordinates of the column.
+ -- column x bd: Receives an integer x, where x represents a 1-based index. Returns the list of coordinates of the column.
  column :: Int -> [[Int]] -> [Int]
  column x bd = [a !! (x-1) | a<-bd] 
 
@@ -32,11 +32,13 @@ module Board where
  markRow n (h:t) p = h : markRow (n-1) t p
 
  --2.
- -- mark x y bd p
+ -- mark x y bd p: Receives two integers y and x along with the board, marks the board with the player´s stone. Returns the marked board.
+ mark :: Int -> Int -> [[Int]] -> Int -> [[Int]]
  mark 1 y (h:t) p = markRow y h p : t
  mark x y (h:t) p = h:mark (x-1) y t p
 
- -- isEmpty x y bd
+ -- isEmpty x y bd: Receives two integers y and x along with the board, returns a boolean stating if there is a stone placed by either player in the location.
+ isEmpty :: Int -> Int -> [[Int]] -> Bool
  isEmpty x y bd = ((row y bd) !! (x-1) == 0)
 
  -- isMarked x y bd
@@ -45,12 +47,14 @@ module Board where
  -- isMarkedBy x y bd p
 
  -- marker x y board
- -- isFull bd
+ 
+ isFullRow [] = True
+ isFullRow (h:t) = h/=0 && isFullRow t
+ -- isFull bd: Receives the board and returns a boolean stating whether there´s a space left in the board to place a stone.
+ isFull :: [[Int]] -> Bool
  isFull [] = True
  isFull (h:t) = isFull t && isFullRow h
 
- isFullRow [] = True
- isFullRow (h:t) = h/=0 && isFullRow t
 
 
 --3.
