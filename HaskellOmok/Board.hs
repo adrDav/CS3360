@@ -27,26 +27,31 @@ module Board where
  column :: Int -> [[Int]] -> [Int]
  column x bd = [a !! (x-1) | a<-bd] 
 
+--2.
  markRow 1 (h:t) p = (m:t)
   where m = if h==0 then p else h
  markRow n (h:t) p = h : markRow (n-1) t p
 
- --2.
- -- mark x y bd p: Receives two integers y and x along with the board, marks the board with the player´s stone. Returns the marked board.
+ -- mark x y bd p: Receives two integers, x and y, along with the board, marks the board with the player´s stone. Returns the marked board.
  mark :: Int -> Int -> [[Int]] -> Int -> [[Int]]
  mark 1 y (h:t) p = markRow y h p : t
  mark x y (h:t) p = h:mark (x-1) y t p
 
- -- isEmpty x y bd: Receives two integers y and x along with the board, returns a boolean stating if there is a stone placed by either player in the location.
+ -- isEmpty x y bd: Receives two integers, x and y, along with the board, returns a boolean stating if there is a stone placed by either player in the location.
  isEmpty :: Int -> Int -> [[Int]] -> Bool
  isEmpty x y bd = ((row y bd) !! (x-1) == 0)
 
- -- isMarked x y bd
- --isMarked x y bd = ((row y bd) !! (x-1) /= 0)
+ -- isMarked x y bd: Receives two integers, x and y, along with the board, returns a boolean stating if the location has already a stone placed.
+ isMarked :: Int -> Int -> [[Int]] -> Bool
+ isMarked x y bd = ((row y bd) !! (x-1) /= 0)
 
- -- isMarkedBy x y bd p
+ -- isMarkedBy x y bd p: Receives two integers, x and y, along with the board and the player, returns a boolean stating if the location has already a stone placed by the respective player.
+ isMarkedBy :: Int -> Int -> [[Int]] -> Int -> Bool
+ isMarkedBy x y bd p = ((row y bd) !! (x-1) == p)
 
- -- marker x y board
+ -- marker x y board: Receives two integers, x and y, along with the board, returns the player stone associated with the player.
+ marker :: Int -> Int -> [[Int]] -> Int
+ marker x y board = (row y board) !! (x-1)
  
  isFullRow [] = True
  isFullRow (h:t) = h/=0 && isFullRow t
