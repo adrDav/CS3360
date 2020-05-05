@@ -146,16 +146,34 @@ module Board where
 
  
  -- boardToStr playerToChar bd
- boardToStr playerToChar bd = "123456789012345\n"++twoDtoStr playerToChar bd (size bd)
+ boardToStr playerToChar bd = " x 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5\ny  ----------------------------\n"++twoDtoStr playerToChar bd (size bd)
  
  twoDtoStr  playerToChar bd 0 = []
- twoDtoStr playerToChar bd c = (twoDtoStr playerToChar bd (c-1)) ++ (rowToStr playerToChar (row c bd)) ++ ['\n']
+ twoDtoStr playerToChar bd c = (twoDtoStr playerToChar bd (c-1)) ++[convertNum c]++['|']++[' ']++ (rowToStr playerToChar (row c bd)) ++ ['\n']
  
  rowToStr _ [] = []
- rowToStr f (h:t) = f h : rowToStr f t
+ rowToStr f (h:t) = [f h] ++[' ']++ rowToStr f t
 
  playerToChar p =
   case p of
    1 -> 'O'
    2 -> 'X'
    x -> '.'
+ 
+ convertNum n =
+  case n of
+   1 -> '1'
+   2 -> '2'
+   3 -> '3'
+   4 -> '4'
+   5 -> '5'
+   6 -> '6'
+   7 -> '7'
+   8 -> '8'
+   9 -> '9'
+   10 -> '0'
+   11 -> '1'
+   12 -> '2'
+   13 -> '3'
+   14 -> '4'
+   15 -> '5'
