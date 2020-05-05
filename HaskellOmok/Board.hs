@@ -73,6 +73,27 @@ module Board where
  -- |isWonBy bd 1
  -- |isWonBy bd 2
  
- -- boardToStr playerToChar bd
  
+--3.
 
+ -- checkVertical [] p = False
+ -- checkVertical bd p 
+
+ -- rowCheckFive 
+
+ -- isGameOver bd
+ 
+ -- boardToStr playerToChar bd
+ boardToStr playerToChar bd = twoDtoStr playerToChar bd (size bd)
+ 
+ twoDtoStr  playerToChar bd 0 = []
+ twoDtoStr playerToChar bd c = (twoDtoStr playerToChar bd (c-1)) ++ (rowToStr playerToChar (row c bd)) ++ ['\n']
+ 
+ rowToStr _ [] = []
+ rowToStr f (h:t) = f h : rowToStr f t
+
+ playerToChar p =
+  case p of
+   1 -> 'O'
+   2 -> 'X'
+   x -> '.'
