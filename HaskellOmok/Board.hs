@@ -64,70 +64,72 @@ module Board where
 
 
 --3.
- -- isWonBy bd p
+ -- isWonBy bd p : Receives the board, player and coordinates of placement and determines if there are 5 or more stones placed in the board.
  isWonBy :: [[Int]] -> Int -> Int -> Int -> Bool
- isWonBy bd p x y = (((verticalRight bd p x (y+1) 0) + (verticalLeft bd p x (y-1) 0)+1) >= 4)
-           ||(((horizontalRight bd p (x+1) y 0) + (horizontalLeft bd p (x-1) y 0)+1) >= 4)
-           ||(((diagonalRightRHalf bd p (x+1) (y+1) 0) + (diagonalRightLHalf bd p (x-1) (y-1) 0)+1) >= 4)
-           ||(((diagonalLeftRHalf bd p (x+1) (y-1) 0) + (diagonalLeftLHalf bd p (x-1) (y+1) 0)+1) >= 4)
+ isWonBy bd p x y = (((verticalRight bd p x (y+1) 0) + (verticalLeft bd p x (y-1) 0)+1) >= 5)
+           ||(((horizontalRight bd p (x+1) y 0) + (horizontalLeft bd p (x-1) y 0)+1) >= 5)
+           ||(((diagonalRightRHalf bd p (x+1) (y+1) 0) + (diagonalRightLHalf bd p (x-1) (y-1) 0)+1) >= 5)
+           ||(((diagonalLeftRHalf bd p (x+1) (y-1) 0) + (diagonalLeftLHalf bd p (x-1) (y+1) 0)+1) >= 5)
  -- isDraw bd: Receives the board and returns a boolean stating if is a draw, based on the board being full.
  isDraw :: [[Int]] -> Bool
  isDraw bd = isFull bd 
+ 
  -- isGameOver bd: Receives the board and returns a boolean stating if the game ended, based on the being a draw or being won by either player.
  isGameOver :: [[Int]] -> Bool
- isGameOver bd = isDraw bd
- -- |isWonBy bd 1
- -- |isWonBy bd 2
+ isGameOver bd = isDraw bd 
  
+ --Helper methods for determining if 5 stones are in a row.
+
+ --Determining the number of stones for player for the vertical right part.
  verticalRight bd p x y col = if y > 0 && y <= (size bd)
                             then 
                              if isMarkedBy x y bd p
                              then verticalRight bd p x (y+1) (col+1)
                              else col
                             else col
-
+--Determining the number of stones for player for the vertical left part.
  verticalLeft bd p x y col = if y > 0 && y <= (size bd)
                             then 
                              if isMarkedBy x y bd p
                              then verticalLeft bd p x (y-1) (col+1)
                              else col
                             else col
-
+ --Determining the number of stones for player for the horizontal right part.
  horizontalRight bd p x y col = if x > 0 && x <= (size bd)
                             then 
                              if isMarkedBy x y bd p
                              then horizontalLeft bd p (x+1) y (col+1)
                              else col
                             else col
-
+ --Determining the number of stones for player for the horizontal left part.
  horizontalLeft bd p x y col = if x > 0 && x <= (size bd)
                             then 
                              if isMarkedBy x y bd p
                              then horizontalLeft bd p (x-1) y (col+1)
                              else col
                             else col
- 
+ --Determining the number of stones for player for the diagonal right top part.
  diagonalRightRHalf bd p x y col = if y > 0 && y <= (size bd) && x > 0 && x <= (size bd)
                             then 
                              if isMarkedBy x y bd p
                              then diagonalRightRHalf bd p (x+1) (y+1) (col+1)
                              else col
                             else col
- 
+  --Determining the number of stones for player for the diagonal right bottom part.
  diagonalRightLHalf bd p x y col = if y > 0 && y <= (size bd) && x > 0 && x <= (size bd)
                             then 
                              if isMarkedBy x y bd p
                              then diagonalRightLHalf bd p (x-1) (y-1) (col+1)
                              else col
                             else col
-
+ --Determining the number of stones for player for the diagonal left top part.
  diagonalLeftRHalf bd p x y col = if y > 0 && y <= (size bd) && x > 0 && x <= (size bd)
                             then 
                              if isMarkedBy x y bd p
                              then diagonalLeftRHalf bd p (x+1) (y-1) (col+1)
                              else col
                             else col
-
+ --Determining the number of stones for player for the diagonal left bottom part.
  diagonalLeftLHalf bd p x y col = if y > 0 && y <= (size bd) && x > 0 && x <= (size bd)
                             then 
                              if isMarkedBy x y bd p

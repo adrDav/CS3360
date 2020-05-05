@@ -12,6 +12,7 @@ main = do
  -- putStrLn(boardToStr playerToChar board)
  play board mkPlayer
 
+--Board logic, prints winner, draw, or if the game is over.
 play board player = do
  putStrLn(boardToStr playerToChar board)
  l <- readXY board player
@@ -24,7 +25,7 @@ play board player = do
  else play board2 (switchPlayer player)
 
 switchPlayer player = if player==1 then 2 else 1
-
+--ReadXY receives input from the user
 readXY board player = do
  putStrLn((playerConversion player)++"'s turn:")
  putStrLn("Enter 0<x<16: ")
@@ -37,6 +38,7 @@ readXY board player = do
   putStrLn("Select coordinates already placed")
   readXY board player
 
+--Validates the input from the user
 getX = do
  line <- getLine
  let parsed = reads line :: [(Int, String)] in
