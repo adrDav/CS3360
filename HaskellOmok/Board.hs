@@ -146,7 +146,7 @@ module Board where
 
  
  -- boardToStr playerToChar bd
- boardToStr playerToChar bd = twoDtoStr playerToChar bd (size bd)
+ boardToStr playerToChar bd = "123456789012345\n"++twoDtoStr playerToChar bd (size bd)
  
  twoDtoStr  playerToChar bd 0 = []
  twoDtoStr playerToChar bd c = (twoDtoStr playerToChar bd (c-1)) ++ (rowToStr playerToChar (row c bd)) ++ ['\n']
