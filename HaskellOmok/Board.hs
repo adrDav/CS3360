@@ -34,7 +34,7 @@ module Board where
  markRow n (h:t) p = h : markRow (n-1) t p
 
  -- mark x y bd p: Receives two integers, x and y, along with the board, marks the board with the player´s stone. Returns the marked board.
- mark :: Int -> Int -> [[Int]] -> Int -> [[Int]]
+ mark :: Int -> Int -> [[Int]] -> Int ->[[Int]]
  mark 1 y (h:t) p = markRow y h p : t
  mark x y (h:t) p = h:mark (x-1) y t p
 
