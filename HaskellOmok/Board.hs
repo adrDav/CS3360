@@ -1,4 +1,5 @@
 module Board where
+
 --1.
  -- mkBoard: Receives as input an integer n and returns an empty nxn board as the [[Int]] type.
  mkBoard n = mkBoardnxn n n
@@ -73,15 +74,11 @@ module Board where
  -- |isWonBy bd 1
  -- |isWonBy bd 2
  
- 
---3.
 
  -- checkVertical [] p = False
  -- checkVertical bd p 
-
  -- rowCheckFive 
 
- -- isGameOver bd
  
  -- boardToStr playerToChar bd
  boardToStr playerToChar bd = twoDtoStr playerToChar bd (size bd)
