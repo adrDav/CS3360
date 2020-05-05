@@ -64,8 +64,15 @@ module Board where
 
 --3.
  -- isWonBy bd p
- -- isDraw bd
- -- isGameOver bd
+ -- isDraw bd: Receives the board and returns a boolean stating if is a draw, based on the board being full.
+ isDraw :: [[Int]] -> Bool
+ isDraw bd = isFull bd 
+ -- isGameOver bd: Receives the board and returns a boolean stating if the game ended, based on the being a draw or being won by either player.
+ isGameOver :: [[Int]] -> Bool
+ isGameOver bd = isDraw bd
+ -- |isWonBy bd 1
+ -- |isWonBy bd 2
+ 
  -- boardToStr playerToChar bd
  
 
