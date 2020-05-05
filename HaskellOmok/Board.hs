@@ -65,6 +65,11 @@ module Board where
 
 --3.
  -- isWonBy bd p
+ isWonBy :: [[Int]] -> Int -> Int -> Int -> Bool
+ isWonBy bd p x y = (((verticalRight bd p x (y+1) 0) + (verticalLeft bd p x (y-1) 0)+1) >= 4)
+           ||(((horizontalRight bd p (x+1) y 0) + (horizontalLeft bd p (x-1) y 0)+1) >= 4)
+           ||(((diagonalRightRHalf bd p (x+1) (y+1) 0) + (diagonalRightLHalf bd p (x-1) (y-1) 0)+1) >= 4)
+           ||(((diagonalLeftRHalf bd p (x+1) (y-1) 0) + (diagonalLeftLHalf bd p (x-1) (y+1) 0)+1) >= 4)
  -- isDraw bd: Receives the board and returns a boolean stating if is a draw, based on the board being full.
  isDraw :: [[Int]] -> Bool
  isDraw bd = isFull bd 
@@ -74,6 +79,64 @@ module Board where
  -- |isWonBy bd 1
  -- |isWonBy bd 2
  
+ verticalRight bd p x y col = if y > 0 && y <= (size bd)
+                            then 
+                             if isMarkedBy x y bd p
+                             then verticalRight bd p x (y+1) (col+1)
+                             else col
+                            else col
+
+ verticalLeft bd p x y col = if y > 0 && y <= (size bd)
+                            then 
+                             if isMarkedBy x y bd p
+                             then verticalLeft bd p x (y-1) (col+1)
+                             else col
+                            else col
+
+ horizontalRight bd p x y col = if x > 0 && x <= (size bd)
+                            then 
+                             if isMarkedBy x y bd p
+                             then horizontalLeft bd p (x+1) y (col+1)
+                             else col
+                            else col
+
+ horizontalLeft bd p x y col = if x > 0 && x <= (size bd)
+                            then 
+                             if isMarkedBy x y bd p
+                             then horizontalLeft bd p (x-1) y (col+1)
+                             else col
+                            else col
+ 
+ diagonalRightRHalf bd p x y col = if y > 0 && y <= (size bd) && x > 0 && x <= (size bd)
+                            then 
+                             if isMarkedBy x y bd p
+                             then diagonalRightRHalf bd p (x+1) (y+1) (col+1)
+                             else col
+                            else col
+ 
+ diagonalRightLHalf bd p x y col = if y > 0 && y <= (size bd) && x > 0 && x <= (size bd)
+                            then 
+                             if isMarkedBy x y bd p
+                             then diagonalRightLHalf bd p (x-1) (y-1) (col+1)
+                             else col
+                            else col
+
+ diagonalLeftRHalf bd p x y col = if y > 0 && y <= (size bd) && x > 0 && x <= (size bd)
+                            then 
+                             if isMarkedBy x y bd p
+                             then diagonalLeftRHalf bd p (x+1) (y-1) (col+1)
+                             else col
+                            else col
+
+ diagonalLeftLHalf bd p x y col = if y > 0 && y <= (size bd) && x > 0 && x <= (size bd)
+                            then 
+                             if isMarkedBy x y bd p
+                             then diagonalLeftLHalf bd p (x-1) (y+1) (col+1)
+                             else col
+                            else col
+
+ 
+
 
  -- checkVertical [] p = False
  -- checkVertical bd p 
