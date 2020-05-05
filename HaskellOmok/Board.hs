@@ -1,32 +1,30 @@
 module Board where
 --1.
---Creation of types for both players and coordinates of the board.
- data Player = Red | Blue | None deriving (Show, Eq)
- data Coordinates = Coordinates { xC :: Int, yC :: Int, p :: Player} deriving (Show)
- -- mkBoard: Receives as input an integer n and returns an empty nxn board as the Coordinates type.
+ -- mkBoard: Receives as input an integer n and returns an empty nxn board as the [[Int]] type.
  mkBoard n = mkBoardnxn n n
  mkBoardnxn n nn = [[0|x<-[1..n]]|x<-[1..nn]]
 
- -- mkPlayer: Object of type 'Player', Player will be the color Red.
- mkPlayer :: Player
+ -- mkPlayer: Object of type Int, mkPlayer represents the human player.
+ mkPlayer :: Int
  mkPlayer = 1
 
- -- mkOpponent: Object of type 'Player', Player will be the color Blue.
- mkOpponent :: Player
+ -- mkOpponent: Object of type Int, mkOpponent represents the computer player.
+ mkOpponent :: Int
  mkOpponent = 2
 
- -- size bd: Receives the board (array of coordinates) and returns the length of such object.
- size :: [Coordinates] -> Int 
+ -- size bd: Receives the board ( [[Int]] ) and returns the length of such object.
+ size :: [[Int]]-> Int
  size bd =  length bd
 
  -- row y bd: Receives an integer y, where y represents a 1-based index. Returns the list of coordinates of the row.
+ row :: Int -> [[Int]] -> [Int]
  row y bd 
   | y<1 || y>(size bd) = []
   | otherwise = bd !! (y-1)
 
 
  -- column x bd Receives an integer x, where x represents a 1-based index. Returns the list of coordinates of the column.
- column:: Int -> [Coordinates] -> [Coordinates]
+ column :: Int -> [[Int]] -> [Int]
  column x bd = [a !! (x-1) | a<-bd] 
 
  markRow 1 (h:t) p = (m:t)
@@ -47,13 +45,6 @@ module Board where
  -- isMarkedBy x y bd p
 
  -- marker x y board
- marker :: Int -> Int -> [Coordinates] -> Player
- marker x y board = p (head (filter f board))
-   where f i = if xC i == x && yC i == y 
-                then True
-                else False
-
-
  -- isFull bd
  isFull [] = True
  isFull (h:t) = isFull t && isFullRow h
